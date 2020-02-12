@@ -1,6 +1,5 @@
 from typing import List
 
-
 # Naive Union Find Object with just parent reference
 class DisjointSetNode:
     def __init__(self):
