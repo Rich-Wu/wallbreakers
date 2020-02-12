@@ -20,11 +20,14 @@ class DisjointSetNode:
 
 class Solution:
     def findCircleNum(self, M: List[List[int]]) -> int:
+        # Initialize an array; each node represents a person's friend circle, of whom only they are members of on initialization
         circles = [DisjointSetNode() for x, _ in enumerate(M)]
         for row_i, row in enumerate(M):
-            for col_i, col in enumerate(row[row_i:]):
+            for col_i, col in enumerate(row):
+                # If two people are friends, one person's friend circle will point to the other's
                 if col == 1:
                     circles[col_i].union(circles[row_i])
-        print(circles)
-
-Solution.findCircleNum(Solution, [[1,1,0,1], [1,1,0,1], [0,0,1,0], [1,1,0,1]])
+        # Set to count the number of unique root friends, who are representative of a friend circle
+        ans = {*[friend.find() for friend in circles]}
+        # Number of unique friends in the set is the number of unique friend circles
+        return len(ans)
